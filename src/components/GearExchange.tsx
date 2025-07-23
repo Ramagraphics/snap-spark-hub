@@ -2,8 +2,31 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, MessageCircle, Camera, Clock } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const GearExchange = () => {
+  const { toast } = useToast();
+
+  const handleChatWithSeller = (seller: string) => {
+    toast({
+      title: "Opening chat...",
+      description: `Connecting you with ${seller}`,
+    });
+    
+    setTimeout(() => {
+      toast({
+        title: "Chat started! 💬",
+        description: `You can now message ${seller} about their gear.`,
+      });
+    }, 1500);
+  };
+
+  const handleSellGear = () => {
+    toast({
+      title: "List Your Gear 📷",
+      description: "Opening gear listing form...",
+    });
+  };
   const gearItems = [
     {
       id: 1,
@@ -130,7 +153,12 @@ const GearExchange = () => {
                 </div>
                 
                 <div className="flex gap-2">
-                  <Button size="sm" variant="camera" className="flex-1">
+                  <Button 
+                    size="sm" 
+                    variant="camera" 
+                    className="flex-1"
+                    onClick={() => handleChatWithSeller(item.seller)}
+                  >
                     <MessageCircle className="w-4 h-4 mr-1" />
                     Chat
                   </Button>
@@ -145,7 +173,12 @@ const GearExchange = () => {
       </div>
 
       <div className="text-center">
-        <Button variant="camera" size="lg" className="mr-4">
+        <Button 
+          variant="camera" 
+          size="lg" 
+          className="mr-4"
+          onClick={handleSellGear}
+        >
           <Camera className="w-4 h-4 mr-2" />
           Sell Your Gear
         </Button>

@@ -2,8 +2,25 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Heart, Download, Star } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const TemplatesMarketplace = () => {
+  const { toast } = useToast();
+
+  const handlePurchase = (template: any) => {
+    // Simulate payment processing
+    toast({
+      title: "Processing Payment...",
+      description: "Please wait while we process your payment.",
+    });
+    
+    setTimeout(() => {
+      toast({
+        title: "Purchase Successful! 🎉",
+        description: `${template.title} has been added to your downloads.`,
+      });
+    }, 2000);
+  };
   const templates = [
     {
       id: 1,
@@ -114,7 +131,11 @@ const TemplatesMarketplace = () => {
               
               <div className="flex items-center justify-between">
                 <span className="text-xl font-bold text-camera-gold">{template.price}</span>
-                <Button size="sm" variant="marketplace">
+                <Button 
+                  size="sm" 
+                  variant="marketplace"
+                  onClick={() => handlePurchase(template)}
+                >
                   Buy Now ✨
                 </Button>
               </div>

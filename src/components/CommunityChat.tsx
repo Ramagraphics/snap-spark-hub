@@ -3,9 +3,33 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-import { MessageCircle, Users, Send, Plus, Mic, Image } from "lucide-react";
+import { MessageCircle, Users, Send, Plus, Mic, Image, LogIn } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import UserRegistration from "./UserRegistration";
 
 const CommunityChat = () => {
+  const { toast } = useToast();
+
+  const handleJoinGroup = (groupName: string) => {
+    toast({
+      title: "Joining Group...",
+      description: `Connecting you to ${groupName}`,
+    });
+    
+    setTimeout(() => {
+      toast({
+        title: "Welcome to the group! 👋",
+        description: `You've successfully joined ${groupName}`,
+      });
+    }, 1500);
+  };
+
+  const handleSendMessage = () => {
+    toast({
+      title: "Message sent! 📤",
+      description: "Your message has been posted to the community.",
+    });
+  };
   const chatGroups = [
     {
       id: 1,
@@ -107,6 +131,7 @@ const CommunityChat = () => {
               key={group.id}
               className="hover:shadow-medium transition-all duration-300 cursor-pointer animate-fade-up bg-gradient-card"
               style={{ animationDelay: `${index * 0.1}s` }}
+              onClick={() => handleJoinGroup(group.name)}
             >
               <CardContent className="p-4">
                 <div className="flex items-start gap-4">
@@ -222,17 +247,24 @@ const CommunityChat = () => {
                 <Button size="sm" variant="ghost">
                   <Mic className="w-4 h-4" />
                 </Button>
-                <Button size="sm" variant="chat">
+                <Button 
+                  size="sm" 
+                  variant="chat"
+                  onClick={handleSendMessage}
+                >
                   <Send className="w-4 h-4" />
                 </Button>
               </div>
             </CardContent>
           </Card>
 
-          <Button variant="outline" className="w-full">
-            <MessageCircle className="w-4 h-4 mr-2" />
-            Join All Conversations
-          </Button>
+          <div className="space-y-3">
+            <UserRegistration />
+            <Button variant="outline" className="w-full">
+              <MessageCircle className="w-4 h-4 mr-2" />
+              Join All Conversations
+            </Button>
+          </div>
         </div>
       </div>
     </div>

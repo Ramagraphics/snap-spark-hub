@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Toaster } from "@/components/ui/toaster";
 import Navigation from "@/components/Navigation";
 import TemplatesMarketplace from "@/components/TemplatesMarketplace";
 import GearExchange from "@/components/GearExchange";
@@ -172,6 +173,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Toaster />
       {/* Header */}
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b">
         <div className="container mx-auto px-4 py-4">
